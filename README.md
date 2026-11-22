@@ -1,5 +1,10 @@
 # SolidWorks Evidence CAD
 
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Status: Research Prototype](https://img.shields.io/badge/Status-Research%20Prototype-orange.svg)
+![Language: Python](https://img.shields.io/badge/Language-Python-3776AB.svg)
+![Platform: Windows](https://img.shields.io/badge/Platform-Windows-0078D4.svg)
+
 **Evidence-Grounded CAD Reconstruction & Repair**
 
 基于工程图证据的 **SolidWorks CAD 推理、原生对象验证与局部纠错**研究原型。项目由 SolidWorks Main Skill 的阶段性成果整理而来；常规建模与基础出图复用第三方 [SolidWorks Automation Skill](https://github.com/wzyn20051216/solidworks-automation-skill)，本仓库重点公开项目自身的证据推理和受控执行实现。
@@ -61,10 +66,20 @@
 
 原始证据状态见[历史实验与限制](docs/EXPERIMENTS.md)。R004公开候选曾通过**119项选定离线测试**；另有一项模拟出图测试在导入`pythoncom`时被阻断，未取得结果。该发布过程未启动SolidWorks（`REAL_SW_INVOKED=NO`），也未重新验证完整Native端到端链路。
 
-## 许可、来源与声明
+## 开源授权与版权
 
-本仓库中有权授权的**项目原创源码、测试及文档**按 [MIT License](LICENSE) 开放；使用、修改和再分发时须保留相应版权及许可声明。第三方软件、源码、商标和未发布的工程图/模型不因本许可证获得授权，须分别遵守原权利人的条款。
+**License: [MIT](LICENSE) · Copyright © 2026 zhuhhz**
 
-特别感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 的维护者与贡献者。上游为独立项目，采用其自身的MIT许可证；本仓库不分发上游Automation源码。详见[代码来源与第三方声明](THIRD_PARTY_NOTICES.md)。
+本仓库中项目方拥有授权权利的原创源码、测试与文档采用 MIT 许可证。遵守该许可证时，你可以：
 
-本项目为独立研究原型，**与Dassault Systèmes / SOLIDWORKS无官方关联或背书**。当前不宣称任意复杂件自主重建、自动通用纠错或制造级验收能力。
+- **免费使用**：包括个人学习、科研和商业用途；
+- **复制和修改**：按需修改、集成项目代码；
+- **分发和再发布**：可发布修改版，也可用于商业软件，MIT 不强制开源修改后的代码。
+
+**必要条件：** 再分发本项目代码或其重要部分时，须保留原版权声明和 MIT 许可文本。项目按“现状”提供，不附带担保。准确的授权条件以 [LICENSE](LICENSE) 全文为准。
+
+**授权范围不包括第三方内容**：SolidWorks软件及商标、原版Automation、外部工具、未公开的原始工程图或模型，均需分别遵守其权利人与许可证要求。本仓库的MIT授权并不等于获得SolidWorks软件的使用许可。
+
+感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 的维护者与贡献者。上游是独立项目并采用自身的MIT许可证，本仓库不分发其源码。详见[第三方来源与版权声明](THIRD_PARTY_NOTICES.md)。
+
+本项目为独立研究原型，**与 Dassault Systèmes / SOLIDWORKS 无官方关联或背书**。当前不宣称任意复杂件自主重建、自动通用纠错或制造级验收能力。
