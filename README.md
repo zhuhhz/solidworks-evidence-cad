@@ -2,46 +2,69 @@
 
 **Evidence-Grounded CAD Reconstruction & Repair**
 
-SolidWorks Main Skill 的公开研究原型，面向工程图证据推理、原生对象验证与局部纠错。
+基于工程图证据的 **SolidWorks CAD 推理、原生对象验证与局部纠错**研究原型。项目由 SolidWorks Main Skill 的阶段性成果整理而来；常规建模与基础出图复用第三方 [SolidWorks Automation Skill](https://github.com/wzyn20051216/solidworks-automation-skill)，本仓库重点公开项目自身的证据推理和受控执行实现。
 
-机械工程图中的投影、尺寸和剖面往往只能限定一组可能的三维结构。即使 SolidWorks 成功生成了零件，仍需验证建模假设、对象归属以及再生工程图是否符合来源。本研究把这三个问题分开核对，为受限重建与局部纠错保留可追溯的证据。
+**项目状态：** 阶段性研究原型 · 非完整自主建模产品  
+**技术环境：** Python · Windows COM · SolidWorks（原生运行需外部安装）  
+**许可证：** [MIT](LICENSE)（仅适用于本仓库有权授权的原创代码和文档）
 
-| 项目研究实现 | 当前范围 |
-| --- | --- |
-| **工程图证据推理** | B008–B010 从受限图像提取投影图元，经人工确认形成 FeatureGraph 与 ModelingPlan。R007 加入跨视图约束、候选排除和解析重投影，R008 记录 UNKNOWN 并支持有来源的条件参数绑定。 |
-| **原生对象身份验证** | R003/R008 回解 SolidWorks 原生持久引用，核对所属 Feature、草图支撑和坐标系。几何相似只能帮助筛选候选，身份结论取决于实际原生对象和关系。 |
-| **源图约束下的局部纠错** | 修正请求绑定源图依据、模型副本、修改前状态、目标原生对象和下游依赖。修改后保存重开，通过原生回读及再生工程图检查影响范围。实测案例的修正意图由人提供。 |
+## 要解决的问题
+
+机械工程图中的投影、尺寸和剖面不一定唯一确定三维结构。即使 CAD API 成功执行操作，还需要确认：建模计划的依据是什么、实际修改的是哪个原生对象、结果是否符合原图。
+
+本项目把**证据推理、原生执行与结果复核**分别记录，允许明确报告 `PASS`、`FAIL` 和 `NOT_PROVEN`，而不是将“API成功调用”等同于“工程验收通过”。
+
+## 三项核心研究能力
+
+| 能力 | 已实现内容 | 主要边界 |
+| --- | --- | --- |
+| **工程图证据推理** | B008–B010 将受限投影图元与人工确认的证据转换为 FeatureGraph / ModelingPlan；R007 提供受限约束推理与解析重投影，R008 支持有来源的 UNKNOWN 条件参数绑定 | 有界几何与已审核输入；并非任意复杂工程图自动理解 |
+| **原生对象身份验证** | R003/R008 基于 SolidWorks 持久引用、Feature 归属、草图 Support 与坐标关系检查当前对象 | 某些对象或 Support 仍可能为 `NOT_PROVEN` |
+| **源图约束局部纠错** | 在模型副本上根据人工给出的修正意图更新既有草图或尺寸，保存重开后复核下游依赖与再生图纸 | 不等于通用自主纠错或制造级验收 |
+
+### 执行分工
 
 ```text
 工程图证据 → 人工确认 → FeatureGraph / ModelingPlan
-                               ↓
-                  自有会话与原生对象绑定
-                               ↓
-              原版 Automation / Engineering Drawing
-                               ↓
-                  SolidWorks 原生零件与工程图
-                               ↓
-            重开回读、源图对照、按范围复核或修正
+                                ↓
+                    R003/R004 受控会话与身份
+                                ↓
+               原版 Automation / Engineering Drawing
+                                ↓
+                    SolidWorks 原生模型与图纸
+                                ↓
+                    原生回读、源图对照、局部纠错
 ```
 
-原版 [SolidWorks Automation Skill](https://github.com/wzyn20051216/solidworks-automation-skill) 提供常规草图、实体特征与导出，其 Engineering Drawing 子技能提供常规视图和标注。项目实现位于证据推理、原生身份和结果复核这几层。六个复杂件的工作流包含 Agent 读图判断、原版模块、项目辅助代码和按案脚本。感谢上游项目的维护者与贡献者。[方法与执行分工](docs/METHOD.md) · [来源与许可](THIRD_PARTY_NOTICES.md)
+常规草图、拉伸、切除、倒角、圆角和基础工程图由上游 Automation 与其 Engineering Drawing 子技能实现。六个复杂件的交付还包含 Agent 读图与按案脚本；不能据此声称 B/F 生成器已独立完成这些复杂件。
 
-## 已有实验
+详见[方法及分工](docs/METHOD.md)。
 
-| 历史实验 | 实际结果 |
-| --- | --- |
-| R007 结构化三视图 | 三个受限 Native 案例通过，原生工程图往返仍为 `NOT_PROVEN`。 |
-| R005 五特征身份与拓扑验收 | 两个 A6 案例取得独立有界验收通过，整体工程状态为 `NOT_VALIDATED`。 |
-| Boss 深度 **28 → 32 mm** | 原生恢复深度，下游横孔有界检查通过。零件保存重开和图纸几何往返通过，源图几何比较通过，可见性未证。 |
-| 复杂支架原草图局部纠错 | 实测补齐多余开口并移除错误悬梁，保留 13 项特征。零件保存重开通过，工程图几何往返通过，整图源图比较仍为 `FAIL`。 |
-| 六个复杂件协作执行 | **6/6** 使用项目 R004 受控会话。该数字衡量所审计案例的路径覆盖。 |
+## 已公开的源码
 
-原始回执状态、失败及未证事项见[实验结果与边界](docs/EXPERIMENTS.md)。
+- **R004 实际执行适配器**：[`r004_execution_adapter.py`](src/solidworks_main_skill/backends/solidworks_automation/r004_execution_adapter.py)、[执行绑定](src/solidworks_main_skill/backends/solidworks_automation/r004_execution_binding.py)、[受控工厂](experiments/three_view_reconstruction/run_r004_q01_real_qualification.py)及必要的R003身份、文档生命周期与清理源码。
+- **受限轮廓与重投影**：[`r007_geometry.py`](src/r007_geometry.py)、[`r007_reprojection.py`](src/r007_reprojection.py)。
+- **草图坐标框架**：[`r008_frames.py`](src/r008_frames.py)。
+- **现有离线测试**：[`tests/unit/`](tests/unit/)，复用历史测试，不声称覆盖全部Native执行路径。
 
-## 公开范围与研究状态
+[查看R004使用说明、依赖和离线测试命令](docs/R004.md)。运行Native路径需要使用者自行准备Windows、SolidWorks、原版Automation、`pywin32`、`comtypes`和相应环境配置。本仓库**不是开箱即用的完整工程图到CAD产品**，不附带原始图纸、模型或完整纠错产品链。
 
-本仓库公开 [R004 实际执行适配器](src/solidworks_main_skill/backends/solidworks_automation/r004_execution_adapter.py)、原有受控工厂及其项目依赖、现有离线测试和使用说明。依赖包含 R003 按 PID 绑定、原生引用和回读，以及 R004 执行绑定、生命周期和清理。原版 Automation、SolidWorks 与本机运行环境由使用者单独准备。[R004 使用与验证](docs/R004.md)
+## 历史实测与未完成项
 
-原有 [LINE/ARC 轮廓几何](src/r007_geometry.py)、[受限解析重投影](src/r007_reprojection.py) 和 [右手草图坐标系](src/r008_frames.py) 继续公开。完整图纸推理、纠错产品链和历史案例材料仍在各自项目归档。公开源码可按说明进行离线核查，完整历史 Native 实验依赖相应原始材料与环境。
+| 实测项目 | 已有证据 | 未证明的范围 |
+| --- | --- | --- |
+| R007结构化三视图 | 三个受限输入生成真实SLDPRT并通过有界Native验收 | 工程图往返 `NOT_PROVEN` |
+| R005原生身份与拓扑 | 两个五特征限定用例通过独立有界验收 | 整体工程状态 `NOT_VALIDATED` |
+| 深度修复 28 → 32 mm | 原生修改、下游横孔有界检查及图纸几何往返通过 | 可见性 `NOT_PROVEN` |
+| 复杂支架原草图纠错 | 局部修正、保存重开、图纸几何往返通过，保留13项特征 | 整图比较 `FAIL`，仍有22项差异、52项可见性UNKNOWN及未证FACE Support |
+| 六个复杂件协作 | 审计样例中6/6使用R004受控会话 | 不代表相对上游的成功率或性能优势 |
 
-复杂图纸的歧义仍需确认，六件复杂交付仍有按案编排。任意复杂件自主重建、通用自动纠错及制造级验收尚未验证。本次公开整理使用既有证据，`REAL_SW_INVOKED=NO`。
+原始证据状态见[历史实验与限制](docs/EXPERIMENTS.md)。R004公开候选曾通过**119项选定离线测试**；另有一项模拟出图测试在导入`pythoncom`时被阻断，未取得结果。该发布过程未启动SolidWorks（`REAL_SW_INVOKED=NO`），也未重新验证完整Native端到端链路。
+
+## 许可、来源与声明
+
+本仓库中有权授权的**项目原创源码、测试及文档**按 [MIT License](LICENSE) 开放；使用、修改和再分发时须保留相应版权及许可声明。第三方软件、源码、商标和未发布的工程图/模型不因本许可证获得授权，须分别遵守原权利人的条款。
+
+特别感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 的维护者与贡献者。上游为独立项目，采用其自身的MIT许可证；本仓库不分发上游Automation源码。详见[代码来源与第三方声明](THIRD_PARTY_NOTICES.md)。
+
+本项目为独立研究原型，**与Dassault Systèmes / SOLIDWORKS无官方关联或背书**。当前不宣称任意复杂件自主重建、自动通用纠错或制造级验收能力。
