@@ -8,11 +8,11 @@
 | [`r007_reprojection.py`](src/r007_reprojection.py) | Main Skill 的 R007 解析重投影和来源视图比较。 |
 | [`r008_frames.py`](src/r008_frames.py) | Main Skill 的 R008 正交右手草图坐标系及映射。 |
 
-这三份文件来自项目的已提交版本，按源码原样发布。该仓库呈现可公开查阅的研究成果，目前未对本项目源码另行声明开源许可证。上游项目的许可独立适用。
+三份 R007/R008 文件来自项目已提交版本。R004 公开部分使用六件记录所对应的实际适配器版本，以及原有工厂、项目模块和现有测试。源码按原样复制。该仓库呈现可查阅的研究成果，目前未对本项目源码另行声明开源许可证。上游项目的许可独立适用。 [R004 源码入口与范围](docs/R004.md)
 
 ## 依赖、参考与平台
 
 - 感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 的维护者与贡献者。上游 Automation 提供常规 CAD 特征与导出，Engineering Drawing 提供常规视图、标注和图纸工作流。上游采用 [MIT 许可证](https://github.com/wzyn20051216/solidworks-automation-skill/blob/main/LICENSE)。本次包未分发上游源码。
 - RapidOCR、eDOCr2 与 Agent Desktop 是外部工具，历史上仅按任务取用。本次包未分发这些工具或其模型权重。
 - SolidWorks 为外部专有平台。历史原生验证在有许可的本地环境进行。本包未分发其安装程序、模板、SDK 或类型库。
-- 原始图纸与零件、完整原生执行和纠错实现、运行配置及日志不在本次公开范围。
+- 原始图纸与零件、完整纠错产品链、六件案例执行脚本、机器专属设置和原始日志保留于项目归档。

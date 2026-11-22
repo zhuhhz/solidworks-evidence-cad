@@ -1,8 +1,8 @@
-# SolidWorks Main Skill
+# SolidWorks Evidence CAD
 
 **Evidence-Grounded CAD Reconstruction & Repair**
 
-基于工程图证据的 CAD 重建、原生对象验证与局部纠错研究原型。
+SolidWorks Main Skill 的公开研究原型，面向工程图证据推理、原生对象验证与局部纠错。
 
 机械工程图中的投影、尺寸和剖面往往只能限定一组可能的三维结构。即使 SolidWorks 成功生成了零件，仍需验证建模假设、对象归属以及再生工程图是否符合来源。本研究把这三个问题分开核对，为受限重建与局部纠错保留可追溯的证据。
 
@@ -40,6 +40,8 @@
 
 ## 公开范围与研究状态
 
-本仓库公开三个可单独阅读的 Python 模块，包括 [LINE/ARC 轮廓几何](src/r007_geometry.py)、[受限解析重投影](src/r007_reprojection.py) 和 [右手草图坐标系](src/r008_frames.py)，以及方法说明和脱敏实验摘要。三个模块只依赖 Python 标准库及彼此。图纸推理的完整管线、SolidWorks 执行与纠错运行时、安装包及原始案例材料未随此发布，因此无法用此仓库完整复现 Native 实验。
+本仓库公开 [R004 实际执行适配器](src/solidworks_main_skill/backends/solidworks_automation/r004_execution_adapter.py)、原有受控工厂及其项目依赖、现有离线测试和使用说明。依赖包含 R003 按 PID 绑定、原生引用和回读，以及 R004 执行绑定、生命周期和清理。原版 Automation、SolidWorks 与本机运行环境由使用者单独准备。[R004 使用与验证](docs/R004.md)
+
+原有 [LINE/ARC 轮廓几何](src/r007_geometry.py)、[受限解析重投影](src/r007_reprojection.py) 和 [右手草图坐标系](src/r008_frames.py) 继续公开。完整图纸推理、纠错产品链和历史案例材料仍在各自项目归档。公开源码可按说明进行离线核查，完整历史 Native 实验依赖相应原始材料与环境。
 
 复杂图纸的歧义仍需确认，六件复杂交付仍有按案编排。任意复杂件自主重建、通用自动纠错及制造级验收尚未验证。本次公开整理使用既有证据，`REAL_SW_INVOKED=NO`。
