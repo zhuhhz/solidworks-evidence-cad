@@ -1,6 +1,7 @@
 # SolidWorks Evidence CAD
 
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE)
+[![Source Available](https://img.shields.io/badge/Code-Source%20Available-orange.svg)](LICENSE)
 ![Status: Research Prototype](https://img.shields.io/badge/Status-Research%20Prototype-orange.svg)
 ![Language: Python](https://img.shields.io/badge/Language-Python-3776AB.svg)
 ![Platform: Windows](https://img.shields.io/badge/Platform-Windows-0078D4.svg)
@@ -11,7 +12,7 @@
 
 **项目状态：** 阶段性研究原型 · 非完整自主建模产品  
 **技术环境：** Python · Windows COM · SolidWorks（原生运行需外部安装）  
-**许可证：** [MIT](LICENSE)（仅适用于本仓库有权授权的原创代码和文档）
+**源码许可：** [PolyForm Noncommercial License 1.0.0](LICENSE) · **源码公开，未经授权不得商业使用**（具体许可目的及历史 MIT 授权例外见下文）
 
 ## 要解决的问题
 
@@ -66,20 +67,17 @@
 
 原始证据状态见[历史实验与限制](docs/EXPERIMENTS.md)。R004公开候选曾通过**119项选定离线测试**；另有一项模拟出图测试在导入`pythoncom`时被阻断，未取得结果。该发布过程未启动SolidWorks（`REAL_SW_INVOKED=NO`），也未重新验证完整Native端到端链路。
 
-## 开源授权与版权
+## 源码许可与商业使用
 
-**License: [MIT](LICENSE) · Copyright © 2026 zhuhhz**
+**源码公开，未经授权不得商业使用。** 本仓库当前版本以 [PolyForm Noncommercial License 1.0.0](LICENSE) 授权项目方有权授权的原创软件源码和相关文件（Copyright © 2026 zhuhhz）。这是**源码可见 / Source-Available** 许可，**不是符合 OSI 开源定义的标准开源许可证**；不得把本项目描述为“OSI认证开源”或“MIT开源”。
 
-本仓库中项目方拥有授权权利的原创源码、测试与文档采用 MIT 许可证。遵守该许可证时，你可以：
+- **许可证允许的用途**：在其条款规定的许可目的内研究、学习、实验、修改和分发；[官方条款](https://polyformproject.org/licenses/noncommercial/1.0.0)对个人非商业活动和教育机构、公益、公共研究等组织有具体定义。
+- **商业用途**：超出许可证允许范围的商业使用需要另行取得权利人授权。不得将项目代码擅自用于收费软件、商业服务或其他未经许可的商业场景。是否符合条款应以许可证全文及具体使用情形判断，而非仅凭本摘要。
+- **保留声明**：再分发时须提供许可条款全文或官方链接，并保留本项目提供的 [Required Notice](NOTICE)。
+- **第三方与品牌**：本许可证不覆盖上游 Automation、Python 第三方包、SolidWorks 软件或商标，也不授权未公开的工程图与模型。
 
-- **免费使用**：包括个人学习、科研和商业用途；
-- **复制和修改**：按需修改、集成项目代码；
-- **分发和再发布**：可发布修改版，也可用于商业软件，MIT 不强制开源修改后的代码。
+**历史 MIT 授权的重要说明：** 本仓库在 2026-11-22 的既有公开提交中曾以 MIT License 授权相应代码。**已经依据当时 MIT 条款合法取得的副本与权限，不会因为本次改许可而被自动或追溯撤销**；这些历史版本仍可依其有效 MIT 授权使用，包括符合 MIT 条款的商业使用。因此本次改许可不能保证历史上已按 MIT 发布的相同代码今后绝对无法被商业使用。历史提交保留，不改写。[详细历史许可记录](docs/LICENSE_HISTORY.md)。
 
-**必要条件：** 再分发本项目代码或其重要部分时，须保留原版权声明和 MIT 许可文本。项目按“现状”提供，不附带担保。准确的授权条件以 [LICENSE](LICENSE) 全文为准。
+[完整许可证](LICENSE) · [Required Notice](NOTICE) · [历史许可记录](docs/LICENSE_HISTORY.md) · [第三方来源与许可证核查](THIRD_PARTY_NOTICES.md)
 
-**授权范围不包括第三方内容**：SolidWorks软件及商标、原版Automation、外部工具、未公开的原始工程图或模型，均需分别遵守其权利人与许可证要求。本仓库的MIT授权并不等于获得SolidWorks软件的使用许可。
-
-感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 的维护者与贡献者。上游是独立项目并采用自身的MIT许可证，本仓库不分发其源码。详见[第三方来源与版权声明](THIRD_PARTY_NOTICES.md)。
-
-本项目为独立研究原型，**与 Dassault Systèmes / SOLIDWORKS 无官方关联或背书**。当前不宣称任意复杂件自主重建、自动通用纠错或制造级验收能力。
+感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 的维护者与贡献者。该独立上游项目采用自身的 MIT 许可，本仓库不分发其源码。本项目为独立研究原型，与 Dassault Systèmes / SOLIDWORKS 无官方关联或背书；不宣称任意复杂件自主重建、通用自动纠错或制造级验收能力。

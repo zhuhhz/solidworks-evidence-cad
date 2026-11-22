@@ -1,30 +1,38 @@
-# 代码来源、许可与致谢
+# 代码来源、许可证与第三方核查
 
-## 本仓库许可证
+## 本仓库当前授权
 
-本仓库中由项目贡献者拥有并有权授权的原创源码、测试和文档，按根目录的 [MIT License](LICENSE) 发布：
+项目方有权授权的原创代码及配套文件，自本次许可证变更后的当前发布版本起，使用根目录的 [PolyForm Noncommercial License 1.0.0](LICENSE)（**非 OSI 开源许可证**）。
 
-- 版权所有者署名：Copyright (c) 2026 zhuhhz。
-- 使用、复制、修改、再分发或商业使用时须按MIT条款保留版权及许可声明。
-- MIT许可证不改变第三方依赖自身的许可证，也不授予SolidWorks软件、品牌、模型、工程图或其他第三方材料的权利。
+**源码公开，未经授权不得商业使用。** 以该许可证实际授予的许可目的和例外为准。请一并保留 [Required Notice](NOTICE)：
 
-若发现个别文件包含不属于本项目的第三方内容，应以原权利人的许可为准，并通过Issue指出具体文件和来源以便核查。
+`Required Notice: Copyright (c) 2026 zhuhhz`
 
-## 本次发布的项目代码
+**历史授权不追溯撤销。** 此前公开提交曾使用 MIT License。已合法依原 MIT 条款取得代码的人，仍可继续依原许可使用对应副本，包括原 MIT 允许的商业使用。详情见[历史许可记录](docs/LICENSE_HISTORY.md)。本次切换不改变Git历史中的原许可事实。
 
-| 范围 | 来源与用途 |
+## 已核查的外部依赖
+
+| 依赖或平台 | 来源与核查结果 | 本仓库是否打包 |
+| --- | --- | --- |
+| [SolidWorks Automation Skill](https://github.com/wzyn20051216/solidworks-automation-skill)（含 Engineering Drawing） | 上游[LICENSE](https://github.com/wzyn20051216/solidworks-automation-skill/blob/main/LICENSE)为 MIT；提供常规 CAD 及制图 API。其许可证独立适用。 | **否**；由使用者单独取得 |
+| [pywin32](https://github.com/mhammond/pywin32) | 项目公开资料以 PSF 类授权为主，内部含不同许可组成；对具体分发的组件和版本应查阅其[发行信息](https://pypi.org/project/pywin32/)及文件级声明。 | 否 |
+| [comtypes](https://github.com/enthought/comtypes) | [官方许可证](https://github.com/enthought/comtypes/blob/main/LICENSE.txt)与[包元数据](https://pypi.org/project/comtypes/)显示 MIT。 | 否 |
+| [pytest](https://github.com/pytest-dev/pytest) | 仅为测试工具，[官方LICENSE](https://github.com/pytest-dev/pytest/blob/main/LICENSE)为 MIT。 | 否 |
+| SolidWorks / Dassault Systèmes | 外部专有软件和商标。使用本仓库不提供或替代其许可。 | 否 |
+
+历史实验曾使用 RapidOCR、eDOCr2、Agent Desktop 等外部工具，本公开仓库未包含这些工具的源码、二进制或模型权重；本次没有对所有历史可选工具的版本及许可进行逐项穷尽审核。
+
+## 本项目的发布源码
+
+| 范围 | 角色 |
 | --- | --- |
-| [R004执行适配器及必要依赖](src/solidworks_main_skill/backends/solidworks_automation/r004_execution_adapter.py) | Main Skill的R004实际适配器、R003按PID绑定与原生采集、执行绑定、会话和文档生命周期、必要的原有推理和测试 |
-| [R007轮廓验证](src/r007_geometry.py) | LINE/ARC有界轮廓几何与材料侧判定 |
-| [R007解析重投影](src/r007_reprojection.py) | 受限候选的正投影视图与源图比较 |
-| [R008坐标框架](src/r008_frames.py) | 正交右手草图坐标系及映射 |
+| [R004受控执行适配器及必要项目源码](src/solidworks_main_skill/backends/solidworks_automation/r004_execution_adapter.py) | R004实际适配器、R003按PID绑定与回读、文档生命周期、组合推理和相关测试 |
+| [R007轮廓几何](src/r007_geometry.py) | 受限LINE/ARC轮廓及材料侧判定 |
+| [R007解析重投影](src/r007_reprojection.py) | 候选投影和来源视图比较 |
+| [R008坐标系](src/r008_frames.py) | 正交右手草图框架 |
 
-R004源码依据六件实际使用的适配器版本和原有依赖整理，保留原实现，不将第三方工具描述为自研成果。运行和测试范围见[R004使用说明](docs/R004.md)。
+R004源文件按原实用版本及依赖整理，不将上游API、第三方执行工具归于本项目原创。查看[R004使用说明](docs/R004.md)。
 
-## 外部软件及未包含的资产
+**审核范围说明：** 本次完成了公开依赖的上游许可证核对和本仓库已列出的源文件范围核对；并非对历史所有源码贡献、潜在嵌入片段或知识产权归属作出法律保证。若发现某文件含第三方权利内容，须优先遵守原权利人的条款并单独核查。
 
-- **SolidWorks Automation Skill**：感谢 [wzyn20051216/solidworks-automation-skill](https://github.com/wzyn20051216/solidworks-automation-skill) 及其维护者和贡献者。上游提供通用CAD操作和Engineering Drawing，按其[MIT许可证](https://github.com/wzyn20051216/solidworks-automation-skill/blob/main/LICENSE)单独授权。本仓库不分发上游源码。
-- **SolidWorks**：Dassault Systèmes的专有CAD平台。本仓库不提供安装包、许可证、SDK或类型库，亦无官方关联或背书。
-- **Python运行依赖**：`pywin32`、`comtypes`、`pytest`及其上游各自按独立许可提供，需视使用情形另行安装。
-- **其他历史工具**：RapidOCR、eDOCr2、Agent Desktop曾用于部分历史任务；本仓库未分发其源码、模型权重或二进制。
-- **未发布资产**：原始工程图、模型、部分实验记录、完整纠错产品链、六件按案脚本及机器专属配置保留于原项目档案，不在本仓库的公开授权范围内。
+原始工程图、模型、完整纠错产品链、六件按案脚本、机器配置和原始日志未在公开仓库中发布。
